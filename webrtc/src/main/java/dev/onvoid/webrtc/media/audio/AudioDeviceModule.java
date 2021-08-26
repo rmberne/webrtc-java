@@ -17,6 +17,7 @@
 package dev.onvoid.webrtc.media.audio;
 
 import dev.onvoid.webrtc.internal.DisposableNativeObject;
+import dev.onvoid.webrtc.internal.NativeLoader;
 
 import java.util.List;
 
@@ -70,5 +71,13 @@ public class AudioDeviceModule extends DisposableNativeObject {
 	public native void dispose();
 
 	private native void initialize(AudioLayer audioLayer);
+
+	static {
+		try {
+			NativeLoader.loadLibrary("webrtc-java");
+		} catch (Exception e) {
+			throw new RuntimeException("Load library 'webrtc-java' failed", e);
+		}
+	}
 
 }
